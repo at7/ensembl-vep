@@ -1053,6 +1053,8 @@ sub cache() {
       $ftp->cwd($sub) or die "ERROR: Could not change directory to $sub\n$@\n";
     }
 
+    my @debug_ls = $ftp->ls;
+    print join(' ', @debug_ls), "\n";
     push @files, grep {$_ =~ /tar.gz/} $ftp->ls;
     print join(' ', @files), "\n";
   }
