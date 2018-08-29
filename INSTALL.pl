@@ -1040,6 +1040,7 @@ sub cache() {
   my $species_list;
 
   if($CACHE_URL =~ /^ftp/i) {
+    print  "CACHE_URL $CACHE_URL\n";
     $CACHE_URL =~ m/(ftp:\/\/)?(.+?)\/(.+)/;
     $ftp = Net::FTP->new($2, Passive => 1) or die "ERROR: Could not connect to FTP host $2\n$@\n";
     $ftp->login($FTP_USER) or die "ERROR: Could not login as $FTP_USER\n$@\n";
