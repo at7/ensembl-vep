@@ -1042,15 +1042,19 @@ sub cache() {
   if($CACHE_URL =~ /^ftp/i) {
     print  "CACHE_URL $CACHE_URL\n";
     $CACHE_URL =~ m/(ftp:\/\/)?(.+?)\/(.+)/;
+    print " - Attempting to connect to the FTP host as user $FTP_USER\n" unless $QUIET;
     $ftp = Net::FTP->new($2, Passive => 1) or die "ERROR: Could not connect to FTP host $2\n$@\n";
+    print " - Successfully connected\n" unless $QUIET;
     $ftp->login($FTP_USER) or die "ERROR: Could not login as $FTP_USER\n$@\n";
     $ftp->binary();
 
     foreach my $sub(split /\//, $3) {
+      print " - $sub\n";
       $ftp->cwd($sub) or die "ERROR: Could not change directory to $sub\n$@\n";
     }
 
     push @files, grep {$_ =~ /tar.gz/} $ftp->ls;
+    print join(' ', @files), "\n";
   }
   else {
     opendir DIR, $CACHE_URL;
