@@ -1054,9 +1054,7 @@ sub cache() {
     }
 
     my @debug_ls = $ftp->ls('/pub/release-93/variation/VEP');
-    print join(' ', @debug_ls), "\n";
     push @files, grep {$_ =~ /tar.gz/} $ftp->ls('/pub/release-93/variation/VEP');
-    print join(' ', @files), "\n";
   }
   else {
     opendir DIR, $CACHE_URL;
@@ -1195,7 +1193,7 @@ sub cache() {
 
     my $target_file = "$CACHE_DIR/tmp/$file_name";
     if($CACHE_URL =~ /^ftp/) {
-      print " - downloading $CACHE_URL/$file_path\n" unless $QUIET;
+      print " - downloading $file_name $target_file $CACHE_URL/$file_path\n" unless $QUIET;
       if(!$TEST) {
         $ftp->get($file_name, $target_file) or download_to_file("$CACHE_URL/$file_path", $target_file);
 
