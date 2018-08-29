@@ -1055,7 +1055,7 @@ sub cache() {
 
     my @debug_ls = $ftp->ls('/pub/release-93/variation/VEP');
     print join(' ', @debug_ls), "\n";
-    push @files, grep {$_ =~ /tar.gz/} $ftp->ls;
+    push @files, grep {$_ =~ /tar.gz/} $ftp->ls('/pub/release-93/variation/VEP');
     print join(' ', @files), "\n";
   }
   else {
