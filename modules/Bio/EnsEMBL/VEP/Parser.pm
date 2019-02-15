@@ -516,6 +516,11 @@ sub validate_vf {
     $vf->{allele_string} || $vf->{class_SO_term}
   );
 
+  if ($vf->{end} - $vf->{start} + 1 > 50) {
+    $self->warning_msg("WARNING: Reference allele length is greater than 50bp on line " . $self->line_number . " and cannot be used for consequence calculation. Please use alternative allele descriptions for structural variants as described in the VCF documentation.");
+    return 0;
+  }
+
   # user specified chr skip list
   if($self->{chr}) {
     return 0 unless grep {$vf->{chr} eq $_} @{$self->{chr}};
